@@ -3,6 +3,7 @@ package org.plexus.hibernate.spring;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class UserDao {
 		 * 	Inyectarlo en la variable siguiente
 		 */
 		
-	@PeristenceContext
+	@PersistenceContext
 	private EntityManager entityManager;
 	
 	public void create(User user) {
@@ -42,6 +43,7 @@ public class UserDao {
 		return entityManager.find(User.class,1);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<User> getAll(){
 		return entityManager.createQuery("select u from User u").getResultList();
 		
