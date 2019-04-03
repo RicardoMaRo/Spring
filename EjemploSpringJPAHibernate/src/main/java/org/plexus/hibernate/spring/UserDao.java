@@ -1,14 +1,51 @@
 package org.plexus.hibernate.spring;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+
+
 
 @Repository
 @Transactional
 public class UserDao {
 
+		/**Esta anotacion es del estandar Java
+		 * 	Busca una factoria de Entity manager
+		 * 	Construye un entitymanager en particular
+		 * 	Inyectarlo en la variable siguiente
+		 */
+		
+	@PeristenceContext
+	private EntityManager entityManager;
 	
+	public void create(User user) {
+		entityManager.persist(user);
+	}
+	
+	public void delete(User user) {
+		if (entityManager.contains(user))
+			entityManager.remove(user);
+		else
+			entityManager.remove(entityManager.merge(user));
+	}
+	
+	public void update(User user) {  
+		entityManager.merge(user);
+	}
+	
+	//Metodos de consulta
+	public User getById(int id) {
+		return entityManager.find(User.class,1);
+	}
+	
+	public List<User> getAll(){
+		return entityManager.createQuery("select u from User u").getResultList();
+		
+	}
 	
 	
 }
