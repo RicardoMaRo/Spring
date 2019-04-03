@@ -82,5 +82,10 @@ public class DatabaseConfig {
 
 
 
-
+	/** Revisión de conceptos claves:
+	 * 		-@Bean
+	 * 		-@Autowired
+	 * 		-Funciones EntityManager() 
+	 * 					TransactionManager()
+	 */
 }
