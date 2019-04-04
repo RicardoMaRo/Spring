@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 
 
-@Repository
-@Transactional
+@Repository         //indica que es un bean de acceso a datos
+@Transactional      //Antes de usar un metodo crea transaccion   y la cierra al salir
 public class UserDao {
 
 		/**Esta anotacion es del estandar Java

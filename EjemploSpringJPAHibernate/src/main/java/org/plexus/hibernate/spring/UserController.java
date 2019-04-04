@@ -42,5 +42,19 @@ public class UserController {
 		}
 		return "usuario eliminado correctamente";
 	}
-    //min 13:50
+
+	@RequestMapping(value = "/update")
+	public String updateName(int id, String name, String message) {
+		try {
+			User user = userDao.getById(id);
+			user.setUserName(name);
+			user.setUserMessage(message);
+			userDao.update(user);
+		} catch (Exception ex) {
+			return "Error actualizando el usuario: " + ex.toString();
+		}
+		return "Usuario actualizado correctamente";
+
+	}
+
 }
