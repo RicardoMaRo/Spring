@@ -21,10 +21,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DatabaseConfig {
 
 	@Bean
-	public DataSource datasource() {
+	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("db.driver"));
-		dataSource.setUrl(env.getProperty("db.user"));
+		dataSource.setUrl(env.getProperty("db.url"));
 		dataSource.setUsername(env.getProperty("db.username"));
 		dataSource.setPassword(env.getProperty("db.password"));
 		
@@ -38,10 +38,10 @@ public class DatabaseConfig {
 				new LocalContainerEntityManagerFactoryBean();
 		
 		//Asignar origen de datos el data source que ha sido inyectado en esta clase
-		entityManagerFactory.setDataSource(dataSource);
+		entityManagerFactory.setDataSource(dataSource());
 		
 		// Paquetess que tiene que escanear para buscar las clases anotadas (property en el fichero de properties)
-		entityManagerFactory.setPackagesToScan(env.getProperty("entityManager.packagesToScan"));
+		entityManagerFactory.setPackagesToScan("org.plexus.hibernate.spring");
 		
 		//Implementacion/vendor usaremos hibernate
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -70,7 +70,7 @@ public class DatabaseConfig {
 	}
 	
 	
-	//Elemento autocableado/autoinyectado Permite leer la configuracion de las diferentes properties que tengamos definidas
+	//Elemento autocableado/autoinyectado Permite leer la configuracion de las diferentes properties que tengamos definidas/Par que los beans se inyecten en el codigo 
 	@Autowired
 	private Environment env;
 

@@ -20,9 +20,11 @@ public class UserController {
 			User user = new User();
 			Random r = new Random();
 			int randomId = r.nextInt(Integer.MAX_VALUE);
+			
 			user.setId(randomId);
 			user.setUserName(name);
 			user.setUserMessage(message);
+			
 			userDao.create(user);
 			return "usuario creado correctamente";
 		} catch (Exception ex) {
